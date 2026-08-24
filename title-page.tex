@@ -1,0 +1,105 @@
+\begin{titlepage}
+  \thispagestyle{empty}
+
+  % The official title-page template uses a slightly wider text area
+  % than the main thesis body.
+  \newgeometry{
+    top=1.0cm,
+    bottom=1.4cm,
+    left=1.6cm,
+    right=1.6cm
+  }
+
+  \begin{center}
+
+    % Faculty logo
+    \includegraphics[width=0.43\textwidth]{assets/tul-weeia-logo.png}
+
+    \vspace{2.6cm}
+
+    % Author
+    {\large\bfseries\itshape \AuthorName\par}
+    \vspace{0.35cm}
+    {\large\bfseries\itshape \AlbumNumber\par}
+
+    \vspace{2.5cm}
+
+    % Thesis type
+    {\LARGE PRACA DYPLOMOWA\par}
+
+    \vspace{0.35cm}
+
+    {\Large \ThesisType\par}
+
+    \vspace{0.25cm}
+
+    {\large na kierunku \StudyProgramme\par}
+
+    \vspace{1.7cm}
+
+    % Thesis title
+    \begin{minipage}{0.88\textwidth}
+      \centering
+      {\LARGE\bfseries
+        \setlength{\baselineskip}{1.35em}
+        \ThesisTitle
+        \par
+      }
+    \end{minipage}
+
+    \vspace{1.5cm}
+
+    % Institute
+    {\large\bfseries \Institute\par}
+
+  \end{center}
+
+\vspace{1.1cm}
+
+\noindent
+\begin{minipage}[t]{0.16\textwidth}
+  \textbf{Promotor:}
+\end{minipage}%
+\begin{minipage}[t]{0.84\textwidth}
+  \raggedright
+  \Supervisor\par
+
+  \vspace{0.20cm}
+
+  \centering
+  {\small\itshape
+    (tytuł/stopień naukowy, imię i nazwisko)\par
+  }
+\end{minipage}
+
+\ifdefempty{\AssistantSupervisor}{}{
+  \vspace{0.5cm}
+  \noindent
+  \textbf{Opiekun pomocniczy:}
+  \AssistantSupervisor
+
+  \begin{flushright}
+    {\small\itshape
+      (tytuł/stopień naukowy, imię i nazwisko)
+    }
+  \end{flushright}
+}
+
+\ifdefempty{\PartnerUniversitySupervisor}{}{
+  \vspace{0.5cm}
+  \noindent
+  \textbf{Promotor uczelni partnerskiej:}
+  \PartnerUniversitySupervisor
+
+  \begin{flushright}
+    {\small\itshape
+      (tytuł/stopień naukowy, imię i nazwisko)
+    }
+  \end{flushright}
+}
+
+\vfill
+
+\begin{center}
+  {\large \SubmissionCity{} \SubmissionYear\par}
+\end{center}

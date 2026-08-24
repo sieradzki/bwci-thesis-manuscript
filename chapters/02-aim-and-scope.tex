@@ -1,0 +1,120 @@
+\chapter{Aim and Scope}
+\label{chap:aim-and-scope}
+
+\section{Aim of the Thesis}
+
+The main aim of this thesis is to develop and evaluate the \emph{Behavioral Work Continuity Index} (BWCI), an operational measure of continuity in observable computer-use behavior. The index is derived from aggregated keyboard, mouse, and application-activity telemetry and summarizes the stability of observed interaction patterns over time.
+
+BWCI is treated as an observable behavioral work-continuity proxy. It is not intended to provide a direct measure of psychological focus, attention, concentration, productivity, work quality, stress, or mental state. The purpose of the index is narrower: to provide a transparent and auditable representation of behavioral continuity that can be analyzed and predicted using time-respecting statistical and machine-learning methods.
+
+The study formulates two complementary short-horizon prediction problems.
+The regression component concerns estimation of the future level of BWCI and, as a secondary outcome, its future change. The classification component concerns the risk of an operationally defined substantial decline in the index. The primary horizon is approximately ten minutes, while five- and fifteen-minute horizons are considered in sensitivity analyses.
+
+A further aim is to compare several modeling approaches under evaluation procedures that reflect both temporal dependence and differences between users. The study therefore distinguishes between predicting later observations for users represented during model development and transferring a model to a user excluded from model fitting.
+
+The final aim is to assess not only predictive performance but also the robustness and interpretability of the proposed measure and the resulting predictive models. The analysis examines sensitivity to alternative operational choices, probability calibration, differences between users, the contribution of longer behavioral histories, personalization, and reproducibility. Internal prediction of BWCI is kept conceptually separate from external evidence concerning the meaning of the constructed proxy.
+
+\section{Research Objectives}
+The main aim is pursued through the following objectives:
+
+\begin{enumerate}
+    \item to audit and prepare the BEHACOM telemetry, including its temporal structure, data-quality limitations, user coverage, and feature availability;
+    
+    \item to define a time-respecting version of BWCI based on observable interaction continuity, application-context stability, and input dynamics;
+
+    \item to formulate prospective classification and regression outcomes over a short future horizon without using information unavailable at the prediction endpoint;
+
+    \item to compare transparent baselines with linear, tree-based, and boosting approaches, and to evaluate sequence-based modeling as an extension of the classification task;
+    
+    \item to evaluate temporal prediction, transfer to previously unseen users, and selected user-adaptation scenarios;
+
+    \item to assess the sensitivity, calibration, interpretability, uncertainty, and reproducibility of the resulting models and operational definitions;
+
+    \item to examine the extent to which evidence independent of the BEHACOM construction supports or limits the interpretation of BWCI.
+\end{enumerate}
+
+\section{Research Questions}
+
+The thesis addresses the following research questions:
+
+\begin{description}
+
+  \item[\textbf{RQ1.}]
+  How can keyboard, mouse, and application-activity telemetry be combined into a transparent and time-respecting measure of behavioral work continuity?
+  
+  \item[\textbf{RQ2.}]
+  To what extent do the current state, recent trajectory, and underlying behavioral features of BWCI contain information about its future level, future change, and the risk of a substantial decline over a horizon of approximately 5--15 minutes?
+
+  \item[\textbf{RQ3.}]
+  How do transparent baselines, linear models, tree-based models, and boosting models compare under chronological evaluation, and, for the classification task, does a sequence model using a longer behavioral history provide a stable advantage over endpoint-based representations?
+  
+  \item[\textbf{RQ4.}]
+  How well do models transfer to a BEHACOM user excluded from model fitting, and how do population cold-start, unlabeled warm-start, and label-based personalization differ in terms of predictive ranking and probability calibration?
+
+  \item[\textbf{RQ5.}]
+  How sensitive are the index, target prevalence, model rankings, and conclusions to alternative component definitions, temporal windows, normalization profiles, prediction horizons, decline thresholds, and target operationalizations?
+
+  \item[\textbf{RQ6.}]
+  What evidence concerning the interpretation of BWCI, or compatible components of the measure, is provided by independent datasets and by analyses of known experimental conditions, interruption-related events, task outcomes, or participant assessments?
+
+\end{description}
+
+These questions concern the construction, prediction, transfer, robustness, and interpretation of an observable behavioral proxy. They do not ask whether computer-use telemetry can diagnose a psychological state or provide an objective measure of productivity. 
+
+\section{Scope of the Study}
+
+The primary empirical source is the BEHACOM dataset \parencite{sanchez2020behacom}. It contains privacy-preserving computer-use telemetry describing application activity, keyboard activity, mouse activity, and selected computer-resource statistics. BEHACOM is used for the development of the index, temporal analysis, construction of prediction outcomes, model comparison, evaluation of transfer between users, personalization experiments, and sensitivity analyses.
+
+The source dataset does not contain an independently observed interruption label, a direct measure of psychological focus, or a task-performance criterion \parencite{sanchez2020behacom}. Consequently, the BEHACOM part of the thesis evaluates the internal properties of the operationalized proxy, its predictability, and its transfer between users. It does not by itself establish external construct validity.
+
+The primary BWCI definition combines three broad aspects of observable behavior:
+
+\begin{itemize}
+    \item continuity of keyboard or mouse interaction;
+    \item stability of the observed application context;
+    \item continuity of the observed input rhythm.
+\end{itemize}
+
+Additional keyboard-related properties are examined as sensitivity components rather than treated as universally available parts of the primary index. The exact transformations, normalization rules, missingness policies, and component weights are presented in Chapter~\ref{chap:data-and-bwci}.
+
+The modeling scope covers classification and regression using transparent baselines and representative linear, tree-based, and boosting models. A recurrent sequence model is additionally evaluated as an extension of the classification task. The evaluation distinguishes chronological prediction for users represented during model development from transfer to a user excluded from model fitting. Sensitivity, calibration, user-level uncertainty, interpretation, personalization, and reproducibility are included as supporting evaluation dimensions. Detailed model definitions, usage scenarios, and evaluation procedures are presented in Chapter~\ref{chap:methodology}.
+
+\pendingthesis{AIM-EXT-SCOPE}{
+  Replace this marker with the final scope of the external-evidence component
+  after all retained analyses involving Office Tasks, SWELL-KW, the
+replication package, and independently collected data have been completed,
+audited, and frozen. Name only the sources
+  that remain in the completed thesis. For each source, state briefly which
+  form of evidence it contributes, such as known experimental conditions,
+  event-aligned behavioral disruption and resumption, task outcomes,
+  participant assessments, compatible BWCI components, or prospective
+  prediction. State explicitly where the complete BWCI definition cannot be
+  reconstructed. If the completed external work does not fully address RQ6,
+  revise that question and record the unresolved part as a limitation.
+}
+
+The implementation scope comprises a reproducible Python research pipeline for data preparation, feature construction, BWCI computation, model training, evaluation, visualization, and export of research artifacts.
+
+\section{Delimitations and Claim Boundaries}
+
+The following boundaries apply to the interpretation of the study:
+
+\begin{enumerate}
+    \item \textbf{Construct boundary.}
+    BWCI represents continuity in observed interaction patterns. It is not a direct measure of focus, productivity, work quality, stress, engagement, or mental state.
+    
+    \item \textbf{Outcome boundary.}
+    A future decline in BWCI is a decline in a constructed behavioral proxy. It is not an independently observed interruption, and the selected decline threshold is an operational convention rather than a validated interruption boundary.
+
+    \item \textbf{Causal boundary.}
+    The study evaluates prediction, association, robustness, and transfer. It does not estimate causal effects of interruptions, inactivity, application switching, or other behavioral variables.
+
+    \item \textbf{Generalization boundary.}
+    Temporal evaluation concerns later observations from known BEHACOM users. Leave-one-user-out evaluation concerns transfer to another user from the same dataset and instrumentation context. Neither establishes generalization to all users, settings, devices, or task domains.
+
+    \item \textbf{Cross-dataset boundary.}
+    Datasets with different tasks, sensors, temporal resolutions, and outcome definitions are not treated as directly interchangeable. Shared components may be compared only when their operational meaning is sufficiently compatible. Behavioral return to an application or resumption of typing is not equated with cognitive recovery.
+
+    \item \textbf{Data and privacy boundary.}
+     The analysis uses aggregated behavioral statistics and does not require recording typed text or the contents of documents, messages, or accessed resources. The resulting telemetry remains potentially sensitive and therefore requires data minimization, pseudonymization, access restrictions, and retention controls.
+\end{enumerate}

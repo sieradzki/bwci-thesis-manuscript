@@ -1,0 +1,58 @@
+\usepackage{xcolor}
+
+\usepackage{csquotes}
+
+\usepackage[
+  backend=biber,
+  style=apa,
+  sorting=nyt,
+  sortcites=true,
+  giveninits=true
+]{biblatex}
+
+\DeclareLanguageMapping{english}{english-apa}
+
+\addbibresource{bibliography/references.bib}
+
+% Draft mode:
+% - true: pending markers are visible in the PDF;
+% - false: every unresolved marker produces a compilation error.
+\newif\ifthesisdraft
+\thesisdrafttrue
+
+\newcounter{pendingthesiscount}
+
+\newcommand{\pendingthesis}[2]{%
+  \stepcounter{pendingthesiscount}%
+  \ifthesisdraft
+    \par\medskip
+    \noindent
+    \fcolorbox{red!70!black}{yellow!10}{%
+      \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+        \textbf{PENDING [#1]}\par
+        #2%
+      }%
+    }%
+    \par\medskip
+  \else
+    \PackageError
+      {bwci-thesis}
+      {Unresolved thesis marker `#1'}
+      {Replace every \string\pendingthesis\space marker before final compilation.}%
+  \fi
+}
+
+\AtEndDocument{%
+  \ifnum\value{pendingthesiscount}>0
+    \ifthesisdraft
+      \PackageWarningNoLine
+        {bwci-thesis}
+        {\arabic{pendingthesiscount}\space unresolved thesis marker(s) remain}%
+    \else
+      \PackageError
+        {bwci-thesis}
+        {\arabic{pendingthesiscount}\space unresolved thesis marker(s) remain}
+        {Resolve all pending thesis material before submission.}%
+    \fi
+  \fi
+}

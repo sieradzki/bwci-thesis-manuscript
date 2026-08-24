@@ -1,0 +1,95 @@
+\chapter{Introduction}
+\label{chap:introduction}
+
+\section{Background and Motivation}
+
+Knowledge work is increasingly mediated by digital systems. Writing, programming, data analysis, information retrieval, communication, and planning are frequently performed through the same computer interface. This integration provides rapid access to information and collaboration tools, but it also makes transitions between applications, documents, communication channels, and broader work contexts easy and frequent.
+
+Field studies conducted in specific office settings have shown that computer-mediated work may be highly fragmented. Workers move between tasks, documents, and broader working spheres, and these transitions may be caused both by external interruptions and by self-initiated switches \parencite{gonzalez2004workingSpheres,czerwinski2004diary}. Such findings should not be interpreted as a universal switching rate for all knowledge workers, but they demonstrate that continuity cannot be assumed merely because a person remains at the same computer.
+
+Task transitions are not inherently undesirable. They may be necessary to obtain information, coordinate with other people, respond to changing priorities, or complete a task that spans several applications. Their effects depend on timing, context, task demands, and the individual. In a controlled experiment, interruptions presented during task execution produced greater performance and affective costs than the same peripheral tasks presented at task boundaries \parencite{bailey2006attention}. Another experiment found that participants compensated for interruptions by completing work faster without a measured reduction in quality, but reported greater stress, frustration, time pressure, and effort \parencite{mark2008cost}. Research on attention residue further indicates that switching away from an unfinished task may impair performance on the subsequent task because attention is not fully disengaged from the previous activity \parencite{leroy2009attentionResidue}. 
+
+These results motivate computational support for less disruptive work, but they also show why a binary interpretation of observable behavior is insufficient. An application switch is not necessarily distraction, a pause in keyboard activity is not necessarily an interruption, and a period of intense input is not necessarily productive. A useful computational measure must therefore state precisely what is observed, how it is operationalized, and which conclusions remain outside its scope. 
+
+\section{From Interruptibility to Behavioral Work Continuity}
+
+A substantial body of human--computer interaction research has examined \emph{interruptibility}: whether a person is currently in a state in which an external interruption is likely to be acceptable or less disruptive. \textcite{fogarty2005interruptibility} demonstrated that relatively simple sensors could support statistical models of human interruptibility, while also emphasizing the need for broader validation beyond the limited study population. Later field work combined computer interaction and biometric signals to estimate interruptibility in the daily work of professional software developers \parencite{zueger2018sensing}.
+
+A particularly relevant prior approach is the probabilistic work continuance
+model proposed by \textcite{shiratori2020workContinuance}. That study used data from actual computer work and related prospective uninterruptible duration to application type, computer-operation activity, the balance between keyboard and mouse activity, and application-switching frequency. The model estimated how long a worker was likely to remain uninterruptible. 
+
+This thesis addresses a related but distinct problem. It introduces the \emph{Behavioral Work Continuity Index} (BWCI) as an operational representation of continuity visible in computer-use telemetry. Rather than estimating a person's willingness or suitability to receive an interruption, BWCI summarizes the recent stability of observable interaction patterns. The primary index combines three signal families: continuity of keyboard or mouse interaction, stability of the observed application context, and continuity of the input rhythm. 
+
+Interruptibility and behavioral work continuity may be related, but they are not interchangeable. A person may display stable computer interaction while remaining willing to respond to another person. Conversely, variable interaction may be a legitimate property of a complex task rather than evidence of disruption. The distinction is central to the interpretation of the models developed in this thesis.
+
+The practical motivation for the proposed measure is to support user-facing systems that respond to changes in behavioral continuity rather than to rank or evaluate workers. Potential applications include personal work-pattern feedback. A second application, more directly connected to prior interruptibility research, is assistance that adapts the timing of non-urgent notifications \parencite{fogarty2005interruptibility,zueger2018sensing,
+shiratori2020workContinuance}. BWCI could serve as one behavioral signal in such systems, but it should not be interpreted as a productivity score. Any practical deployment would require independent validation, data minimization, transparent communication of the measure's limitations, and meaningful user control.
+
+\section{Operationalization and Interpretation Boundary}
+BWCI is a constructed measure, not a directly observed state. Computational systems often operationalize unobservable theoretical constructs through observable properties, and this process necessarily introduces assumptions about the relationship between the construct and its indicators \parencite{jacobs2021measurement}. Predictive accuracy alone cannot establish that an operationalization corresponds to a broader psychological or organizational concept. 
+
+Accordingly, BWCI is defined as an \emph{observable behavioral work-continuity proxy}. It does not directly measure psychological focus, attention, concentration, productivity, work quality, stress, engagement, or mental state. A period without keyboard or mouse input may represent an interruption, but it may also represent reading, planning, a meeting, work performed away from the monitored computer, or missing telemetry. Frequent application switching may indicate unstable activity, but it may also be necessary for information retrieval, software development, communication, or coordination.
+
+The primary BWCI implementation is therefore deliberately limited to claims about patterns present in the monitored signals. Higher values indicate a greater degree of continuity in the monitored interaction patterns according to the operational definition adopted in this study; they do not prove that the work is valuable or that the user is cognitively focused. Similarly, a future decline in BWCI is deterioration of the constructed proxy, not a ground-truth interruption.
+
+The index is designed for prospective use: its online form is calculated only from information available at the current endpoint and from previously observed history. Population-level normalization is fitted on the applicable training data. In the warm-start scenario, a personal profile is established only after a predefined unlabeled warm-up period and is then kept fixed. Future observations and future labels are excluded from index construction. This temporal restriction prevents normalization from incorporating information that would not be available in an operational setting.
+
+\section{Research Problem and Evidence Strategy}
+
+The empirical problem is formulated in two complementary ways. The regression task estimates the future level of BWCI, while the classification task estimates the risk of an operationally defined substantial decline in the index. The primary horizon is approximately ten minutes, with shorter and longer horizons examined as sensitivity variants. This formulation separates the current behavioral state from the future outcome and avoids treating reconstruction of the current index as prospective prediction.
+
+The principal dataset is BEHACOM. It contains privacy-preserving computer-use telemetry collected from twelve users over fifty-five consecutive days, including statistics derived from applications, keyboard activity, mouse activity, and computer-resource use. The records were produced using nominally one-minute aggregation intervals, but the dataset does not provide an independently observed interruption label or a direct measure of psychological focus \parencite{sanchez2020behacom}.
+
+The analysis in this thesis does not assume a perfectly regular minute grid. Raw timestamps, duplicate and conflicting records, gaps, and source ordering are audited explicitly, after which past-only clock-time windows and telemetry-continuity segments are constructed.
+
+The internal evaluation therefore addresses predictability and transfer of the operationalized proxy rather than external construct validity. Chronological training, validation, and test partitions are used to estimate performance on later observations, while model selection is confined to the validation partition. Leave-one-user-out evaluation examines transfer to a BEHACOM user excluded from model fitting. Strong persistence and prevalence baselines are retained, and the analysis distinguishes model selection, ranking performance, threshold-dependent decisions, and probability calibration.
+
+The evaluation also includes sensitivity analyses for the index definition, prediction horizon, decline threshold, time semantics, continuity-gap policy, normalization profile, and target operationalization. These analyses identify which conclusions are stable under reasonable alternatives and which depend on a specific operational choice. They do not convert an internally constructed outcome into an externally validated measure.
+
+\pendingthesis{INTRO-EXT-EVIDENCE}{
+  After the Office Tasks, SWELL-KW, and any own-data analyses have been
+  completed, audited, and frozen, replace this marker with one concise final
+  paragraph. Name only the datasets retained in the completed thesis and state
+  the distinct form of evidence contributed by each. Cite the relevant
+  publications and later thesis chapters. 
+}
+
+\section{Contributions}
+
+Within the stated interpretation boundary, the principal contributions are:
+
+\begin{enumerate}
+    \item It defines BWCI as a transparent behavioral proxy composed of interaction continuity, application-context stability, and input-rhythm continuity, together with a time-respecting population cold-start and fixed personal warm-start policy.
+    
+    \item It develops an auditable data pipeline that resolves timestamp integrity issues, preserves source lineage, constructs clock-time windows, defines prospective outcomes, and enforces feature-availability rules at prediction time.
+
+    \item It compares transparent baselines with linear, tree-based, and boosting models in classification and regression settings, and evaluates sequence models as an extension of the classification task. The evaluation separates temporal prediction for known users from transfer to a previously unseen BEHACOM user.
+
+    \item It evaluates construct and target sensitivity, model interpretation, calibration, user-level uncertainty, personalization, and reproducibility while keeping predictive performance distinct from external construct validity.
+\end{enumerate}
+
+These contributions concern the construction and prediction of an observable behavioral proxy. They do not establish BWCI as a psychological assessment or as an employee-productivity measure.
+
+\section{Structure of the Thesis}
+
+% Recheck chapter titles, order, and labels after the final table of
+% contents has been fixed.
+
+Chapter~\ref{chap:aim-and-scope} defines the aim, research questions, scope,
+and claim boundaries of the study. Chapter~\ref{chap:related-work} reviews
+research on task switching, interruptions, interruptibility, behavioral
+sensing, construct operationalization, and temporal machine learning.
+
+Chapter~\ref{chap:data-and-bwci} describes the data sources used in the study,
+the BEHACOM data-quality audit, preprocessing, clock-time windows, profile
+construction, the BWCI definition, and the prospective outcomes.
+Chapter~\ref{chap:methodology} presents the feature contract, baselines,
+machine-learning models, temporal and leave-one-user-out evaluation protocols,
+calibration, uncertainty estimation, and sensitivity analyses.
+
+Chapter~\ref{chap:results} reports the empirical results.
+Chapter~\ref{chap:discussion} interprets the findings in relation to the
+research questions and prior work, and discusses construct validity,
+generalizability, privacy, and practical limitations.
+Chapter~\ref{chap:conclusions} summarizes the conclusions and the
+contributions of the thesis.
