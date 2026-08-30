@@ -135,5 +135,131 @@ Ranking, probability calibration, and thresholded decisions address further dist
 For BWCI, these principles motivate keeping several evaluation questions separate: prospective prediction of later proxy values for represented participants, transfer to a held-out participant, adaptation using participant-specific information, ranking of a deterioration outcome, probability calibration, and classification at a chosen operating threshold. These dimensions are not treated as alternative names for overall model quality, nor as methodological novelties of BWCI. They define distinct estimands and predictive properties whose interpretation depends on the temporal setting, the relationship between training and evaluation participants, the class distribution, and the form in which model output is evaluated.
 
 \section{Synthesis and Positioning of BWCI}
+
 \subsection{Comparison with Closely Related Approaches}
+
+The literature reviewed in this chapter places BWCI alongside three closely related lines of research: sensing current interruptibility, predicting work continuance or uninterruptible duration, and constructing higher-level behavioral measures from computer-interaction logs. These lines use overlapping sources of behavioral evidence, but differ in the construct being operationalized, the provenance of the prediction target, and the temporal question being addressed.
+
+Current-interruptibility research estimates whether an interruption appears appropriate at the present moment. Fogarty et al. and Züger et al. primarily operationalized this construct through contemporaneous participant ratings, while using sensed behavioral, contextual, or physiological information as predictors \parencite{fogarty2005interruptibility,zueger2018sensing}. The earlier laboratory work by Züger and Fritz belongs to the same general line, and its later close replication by Poreba and Sobernig illustrates how small samples, target construction, class prevalence, and baseline choice can affect the apparent strength of predictive results \parencite{zueger2015interruptibility,poreba2026replication}. This literature concerns perceived current interruptibility rather than continuity in the observed computer-interaction pattern itself.
+
+A second line asks how long an ongoing condition is expected to persist. Iga et al. provide an early duration-oriented example based on PC-operation features \parencite{iga2015uninterruptibleDuration}. Shiratori et al. subsequently modeled the duration of intervals derived from an operational interruptibility estimator and evaluated prediction across participants \parencite{shiratori2020workContinuance}. This work is particularly close to BWCI in its use of keyboard, mouse, application, and switching information and in its prospective orientation. Its target is nevertheless different: it estimates time to the end of an algorithmically identified interval rather than the future value or deterioration of a continuously defined behavioral proxy.
+
+A third line constructs higher-level representations directly from work logs. Workgraph operationalized personal-focus sessions through relationships among events recorded across engineering tools \parencite{chen2022workgraph}. Brown et al. similarly constructed a logs-based focused-work metric from cross-tool activity and assessed its interpretation using independent self-report evidence \parencite{brown2023focusedWork}. These studies demonstrate that computer logs can support explicit behavioral operationalizations, while also showing that labels such as focus or focused work are not inherent properties of the underlying telemetry.
+
+Table~\ref{tab} summarizes these differences. Its purpose is not to rank approaches by the number of methods they employ, but to distinguish the questions that their measurements and evaluations are designed to answer.
+
+\begin{table}[htbp]
+\centering
+\caption{Positioning of BWCI relative to closely related approaches.}
+\label{tab:related-work-positioning}
+
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabularx}{\textwidth}{
+@{}
+>{\raggedright\arraybackslash}p{0.11\textwidth}
+>{\raggedright\arraybackslash}p{0.13\textwidth}
+Y
+Y
+>{\raggedright\arraybackslash}p{0.17\textwidth}
+Y
+@{}
+}
+\toprule
+
+```
+\textbf{Approach} &
+\textbf{Construct} &
+\textbf{Target / reference} &
+\textbf{Main signals} &
+\textbf{Evaluation setting} &
+\textbf{Interpretation boundary} \\
+
+\midrule
+
+\textcite{fogarty2005interruptibility} &
+Current interruptibility &
+Contemporaneous ratings, with selected non-response cases
+operationally assigned &
+Office-context sensing, including keyboard and mouse activity &
+Current-state estimation; four university staff &
+Perceived interruptibility; not interruption cost or a general
+cognitive state \\
+
+\addlinespace
+
+\textcite{zueger2018sensing} &
+Perceived current interruptibility &
+Periodic participant ratings &
+Computer interaction, application/context, and biometric information &
+Current-state estimation; 13 developers; participant-specific and
+held-out-participant analyses &
+Subjective interruptibility operationalization; not objective
+interruption ground truth \\
+
+\addlinespace
+
+\textcite{shiratori2020workContinuance} &
+Work continuance / uninterruptible duration &
+Duration derived from an operational interruptibility estimator &
+Application type, PC activity, keyboard--mouse balance, and switching &
+Time to the end of an identified interval; 13 university participants;
+leave-one-participant-out evaluation &
+Algorithmically identified interval that may differ from experienced
+interruptibility \\
+
+\addlinespace
+
+\textcite{chen2022workgraph} &
+Personal focus / interruption &
+Rule-defined personal-focus sessions from cross-tool logs &
+Events recorded across engineering tools &
+Operational work-session structure in an internal Meta engineering
+setting &
+Session construct depends on the rules defining focus and interruption \\
+
+\addlinespace
+
+\textcite{brown2023focusedWork} &
+Focused work &
+Logs-based focus-time metric assessed with self-report evidence &
+Time-ordered actions across development and communication tools &
+Focus sessions and aggregated focus time; software engineers; diary
+and longitudinal self-report comparisons &
+Focused work is related to, but not equivalent to, subjective flow \\
+
+\addlinespace
+
+BWCI &
+Behavioral work-continuity proxy &
+Future BWCI level and operationally defined deterioration &
+Keyboard, mouse, and application-use telemetry &
+Prospective temporal prediction; held-out-participant transfer;
+participant-specific adaptation &
+Restricted to continuity in recorded computer interaction; not direct
+focus, productivity, or ground-truth interruption \\
+
+\bottomrule
+```
+
+\end{tabularx}
+
+\endgroup
+\end{table}
+
+
 \subsection{Positioning and Evidential Boundaries}
+
+BWCI is positioned within this literature as an explicitly bounded behavioral work-continuity proxy derived from observable computer-interaction telemetry. Its distinction does not arise from the use of keyboard, mouse, application, or switching signals: closely related work has used these signal families before. Nor do participant separation, personalization, sequence information, calibration, or the use of multiple predictive tasks establish the construct as distinct by themselves. These are evaluation and modeling choices whose purpose is to characterize the behavior of the operationalized proxy under different predictive scenarios.
+
+The principal distinction instead concerns what is being represented and predicted. Current-interruptibility studies primarily estimate a contemporaneous perceived state referenced to participant reports. Work-continuance models estimate the duration or remaining extent of an operationally identified interval. Logs-based focused-work approaches construct work-session or focus-time representations from relationships among recorded tool events. BWCI, by contrast, represents continuity in the observed computer-interaction pattern and defines predictive targets from the future level or operationally defined deterioration of that behavioral proxy. Similarity in input signals therefore does not imply equivalence of construct or target.
+
+The evaluation of BWCI consequently separates several questions that prior work and the methodological literature show to be non-interchangeable. Prediction of later observations for already represented participants addresses a different generalization scenario from transfer to a participant absent from model development, while adaptation using information from that participant introduces a further estimand. Likewise, ranking a deterioration outcome, assessing the quality of predicted probabilities, and evaluating classifications at an operating threshold characterize different properties of a predictive model. Their inclusion in the thesis provides a structured characterization of BWCI prediction rather than a claim that these evaluation procedures are themselves new.
+
+The evidential boundary is equally important. Because BWCI and its prediction targets are operationally constructed from computer-interaction telemetry, successful prediction of future BWCI establishes properties of the proxy and the extent to which its future behavior is predictable from available prior information. It does not independently establish that the proxy measures psychological focus, attention, productivity, perceived interruptibility, or another broader construct. As established by the measurement literature, stronger construct interpretations require evidence relating an operational measure to observations that are not supplied merely by its own definition or internal predictability \parencite{cronbach1955constructValidity,jacobs2021measurement}.
+
+BWCI should therefore be understood neither as a replacement for interruptibility measures nor as a renamed work-continuance or focused-work model. It is a distinct operationalization of behavioral continuity in recorded computer interaction, evaluated prospectively under multiple temporal and person-generalization scenarios. This positioning preserves the contributions of the preceding literature while keeping the predictive characterization of the proxy separate from the independent evidence required for broader construct claims.
+
