@@ -45,7 +45,7 @@ Züger et al. also distinguished participant-specific modeling from transfer to 
 
 Across these studies, target construction relied primarily on contemporaneous participant ratings. Such ratings provide a reference independent of the sensor features, but remain subjective operationalizations shaped by how respondents understand interruptibility and the hypothetical interruption being considered. They are not objective ground truth for interruption cost, psychological focus, or a universal internal state. Keyboard, mouse, application, contextual, and biometric signals served as predictors of the ratings rather than direct measurements of those constructs.
 
-Reported accuracy from these studies is not directly comparable with average precision in the BWCI evaluation because the targets, dichotomization rules, class prevalence, populations, and validation procedures differ. Classification of current interruptibility estimates a reported state at the sampling moment, whereas BWCI concerns prospective prediction of the future level and operationally defined deterioration of a bounded behavioral proxy. Work-continuance modeling introduces a further question: how long the current condition is expected to persist.
+Reported accuracy from these studies is not directly comparable with classification performance reported for BWCI because the targets, dichotomization rules, class prevalence, populations, and validation procedures differ. Classification of current interruptibility estimates a reported state at the sampling moment, whereas BWCI concerns prospective prediction of the future level and operationally defined deterioration of a bounded behavioral proxy. Work-continuance modeling introduces a further question: how long the current condition is expected to persist.
 
 \subsection{Predicting Uninterruptible Duration and Work Continuance}
 
@@ -70,7 +70,7 @@ This distinction was explicit in the field study by \textcite{zueger2018sensing}
 
 Person dependence was also visible in the work-continuance analysis of \textcite{shiratori2020workContinuance}. Although leave-one-participant-out evaluation produced positive correlations between predicted and derived durations for every held-out participant, prediction errors differed considerably between individuals. The authors discussed differences in working style, including keyboard- or mouse-dominant operation and window-management preferences, as possible explanations for this variability rather than as formally established causes \parencite{shiratori2020workContinuance}.
 
-Replication evidence provides a separate reason for caution when interpreting performance from small studies. \textcite{poreba2026replication} conducted an external close replication of the laboratory study reported by \textcite{zueger2015interruptibility}, while documenting deviations from the original study design and procedure. Ten participants completed 60-minute programming sessions, yielding 82 interruptibility observations. The replication retained the five-state perceived-interruptibility target and its binary transformation, used a Naive Bayes classifier, and evaluated accuracy through repeated 10-fold cross-validation against a majority-class ZeroR baseline. For the binary target, accuracy was 8.8 percentage points above the baseline, but variability across validation runs was high and the advantage was not statistically significant. For the five-state target, accuracy was below the majority baseline \parencite{poreba2026replication}.
+Replication evidence provides a separate reason for caution when interpreting performance from small studies. \textcite{poreba2026replication} conducted an external close replication of the laboratory study reported by \textcite{zueger2015interruptibility}, while documenting deviations from the original study design and procedure. Ten participants completed 60-minute programming sessions, yielding 82 interruptibility observations. The replication retained the five-state perceived-interruptibility target and its binary transformation, used a Naive Bayes classifier, and evaluated accuracy using 10 repetitions of 10-fold cross-validation against a majority-class ZeroR baseline. For the binary target, accuracy was 8.8 percentage points above the baseline, but variability across validation runs was high and the advantage was not statistically significant. For the five-state target, accuracy was below the majority baseline \parencite{poreba2026replication}.
 
 These findings do not establish that interruptibility is generally unpredictable or invalidate the wider sensing literature. Poreba and Sobernig identified small sample size, class imbalance, and the ad hoc binary transformation of the five-point rating as important threats to validity. The replication's binary label distribution was substantially more balanced than in the original laboratory study, while the five-state label distributions remained imbalanced in both studies. The authors also documented methodological deviations from the original experiment. The replication therefore shows that the apparent strength of predictive results can be sensitive to sample composition, target construction, validation variability, and the baseline used for comparison \parencite{poreba2026replication}.
 
@@ -99,7 +99,7 @@ The classical account of construct validity by \textcite{cronbach1955constructVa
 
 The same distinction applies to computational measurement. \textcite{jacobs2021measurement} describe theoretical constructs as abstractions that cannot be observed directly and must instead be operationalized through observable properties assumed to be related to them. Operationalization necessarily introduces assumptions and design choices about which indicators are relevant and how they represent the intended construct. A mismatch can consequently arise between the theoretical phenomenon that a computational system is said to measure and what its operational definition actually captures. Making those assumptions explicit is necessary for evaluating the resulting interpretation.
 
-The logs-based study by \textcite{brown2023focusedWork} provides a practical illustration. Brown et al. found that nearly identical patterns of logged activity could correspond to retrospective reports of flow or non-flow. Rather than treating those behavioral patterns as sufficient to distinguish the subjective state, the authors broadened the scope of their metric toward focused work. Their response illustrates how empirical evidence can constrain the interpretation assigned to a constructed behavioral measure rather than simply confirm its initially intended meaning.
+The logs-based study by \textcite{brown2023focusedWork}, discussed above, provides a practical illustration of this principle. Its comparison with independent self-report evidence constrained the interpretation assigned to the constructed logs-based measure rather than simply confirming its initially intended meaning.
 
 BWCI is therefore defined with a deliberately bounded interpretation. It is an operational representation of continuity in recorded computer-interaction behavior and is treated as an observable behavioral work-continuity proxy. In this thesis, the term \emph{proxy} is used to reflect this restricted inferential role: the index summarizes specified aspects of observed behavior without asserting that a broader state is directly observed. Consequently, BWCI is not, by its definition alone, a direct measure of psychological focus, attention, productivity, work quality, perceived interruptibility, or a ground-truth interruption.
 
@@ -114,7 +114,7 @@ Application telemetry has a related boundary. An active application or an applic
 
 Ambiguity can remain even when a richer pattern of events is available. As discussed previously, \textcite{brown2023focusedWork} found that nearly identical patterns of logged activity could accompany retrospective reports of either flow or non-flow. The observation does not imply that logs are uninformative; rather, it shows that similarity in recorded behavior does not uniquely determine the subjective meaning associated with that behavior.
 
-Minimizing the retention of content-level data limits the explicit content preserved, but does not make interaction telemetry inherently anonymous or non-sensitive. BEHACOM, for example, aggregated locally collected raw interaction data into behavioral features, associated the released feature vectors with user identifiers, transmitted the resulting feature vectors to the server, and deleted the raw data locally after transmission \parencite{sanchez2020behacom}. This design avoids retaining typed text and other raw interaction details in the released feature representation. However, research on behavioral signals shows that information may remain in timing and interaction dynamics themselves. \textcite{balagani2018contextPrivacy} showed, in the setting of continuous keystroke authentication, that keystroke latencies could reveal which application was being used for text entry. Separately, \textcite{zheng2011mouseVerification} demonstrated that fine-grained mouse-movement dynamics could support user verification. These results concern representations and experimental settings different from BWCI; they do not establish that BWCI features reveal application context or permit user identification. They do show more generally that content-minimized interaction telemetry can remain behaviorally distinctive and potentially sensitive.
+Minimizing the retention of content-level data limits the explicit content preserved, but does not make interaction telemetry inherently anonymous or non-sensitive. BEHACOM, for example, aggregated locally collected raw interaction data into behavioral feature vectors and transmitted those vectors to the server. During server-side dataset generation, a user identifier was appended to each received vector, while the raw data were deleted locally after transmission \parencite{sanchez2020behacom}. This design avoids retaining typed text and other raw interaction details in the released feature representation. However, research on behavioral signals shows that information may remain in timing and interaction dynamics themselves. \textcite{balagani2018contextPrivacy} showed, in the setting of continuous keystroke authentication, that keystroke latencies could reveal which application was being used for text entry. Separately, \textcite{zheng2011mouseVerification} demonstrated that fine-grained mouse-movement dynamics could support user verification. These results concern representations and experimental settings different from BWCI; they do not establish that BWCI features reveal application context or permit user identification. They do show more generally that content-minimized interaction telemetry can remain behaviorally distinctive and potentially sensitive.
 
 These observational boundaries constrain the interpretation of any representation constructed from such data. For BWCI, absence of input cannot be equated with absence of work, application-context stability cannot be equated with semantic task stability, and recorded interaction cannot represent activity occurring outside the monitored computer. Similar telemetry may also admit different experiential interpretations, while content minimization does not eliminate the need to treat behavioral data as potentially sensitive. These limitations do not make computer-interaction telemetry unsuitable for behavioral measurement; they specify what conclusions its evidence can support.
 
@@ -146,7 +146,7 @@ A second line asks how long an ongoing condition is expected to persist. Iga et 
 
 A third line constructs higher-level representations directly from work logs. Workgraph operationalized personal-focus sessions through relationships among events recorded across engineering tools \parencite{chen2022workgraph}. Brown et al. similarly constructed a logs-based focused-work metric from cross-tool activity and assessed its interpretation using independent self-report evidence \parencite{brown2023focusedWork}. These studies demonstrate that computer logs can support explicit behavioral operationalizations, while also showing that labels such as focus or focused work are not inherent properties of the underlying telemetry.
 
-Table~\ref{tab} summarizes these differences. Its purpose is not to rank approaches by the number of methods they employ, but to distinguish the questions that their measurements and evaluations are designed to answer.
+Table~\ref{tab:related-work-positioning} summarizes these differences. Its purpose is not to rank approaches by the number of methods they employ, but to distinguish the questions that their measurements and evaluations are designed to answer.
 
 \begin{table}[htbp]
 \centering
@@ -170,7 +170,7 @@ Y
 }
 \toprule
 
-```
+
 \textbf{Approach} &
 \textbf{Construct} &
 \textbf{Target / reference} &
@@ -237,13 +237,13 @@ BWCI &
 Behavioral work-continuity proxy &
 Future BWCI level and operationally defined deterioration &
 Keyboard, mouse, and application-use telemetry &
-Prospective temporal prediction; held-out-participant transfer;
-participant-specific adaptation &
+Prospective temporal prediction; held-out-user transfer;
+user-specific adaptation &
 Restricted to continuity in recorded computer interaction; not direct
 focus, productivity, or ground-truth interruption \\
 
 \bottomrule
-```
+
 
 \end{tabularx}
 
